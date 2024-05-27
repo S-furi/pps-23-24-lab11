@@ -77,5 +77,10 @@ appendLast([H|T], L) :- last(T, X), append([X], [H|T], L).
 
 fromCircList([H1,H2|T], [e(H3, H4)|L]) :- appendLast([H1,H2|T], [H3,H4|T2]), !, fromList([H1,H2|T], L).
 
-
+% outDegree
+outDegree([], _, N, N).
+outDegree([e(E1, E2)|L], E, Deg, N) :- E1 \= E, outDegree(L, E, Deg, N).
+outDegree([e(E, _)|L], E, Deg, N) :- N2 is N + 1, outDegree(L, E, Deg, N2).
+outDegree([e(E1, E2)|L], E, Deg) :- outDegree(L, E, Deg, 0).
+	
 
