@@ -62,3 +62,20 @@ dropLast(X, [H|Xs], L4) :- reverse([H|Xs], L2), dropFirst(X, L2, L3), reverse(L3
 dropAll(X, [], []).
 dropAll(X, [X|T], L) :- !, dropAll(X, T, L).
 dropAll(X, [H|T], [H|L]) :- dropAll(X, T, L).
+
+%% GRAPHS
+
+% fromList
+fromList([_], []).
+fromList([H1, H2|T], [e(H1,H2)|L]) :- fromList([H2|T], L).
+
+% fromCircList
+last([H], H).
+last([H|T], R) :- last(T, R).
+
+appendLast([H|T], L) :- last(T, X), append([X], [H|T], L).
+
+fromCircList([H1,H2|T], [e(H3, H4)|L]) :- appendLast([H1,H2|T], [H3,H4|T2]), !, fromList([H1,H2|T], L).
+
+
+
